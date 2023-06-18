@@ -12,12 +12,12 @@ class Video {
       string id;
       string nombre;
       vector<string> generos;
-      int calificaciones;
+      int calificacion;
       int duracion;
       string fechaEstreno;
 
    public:
-      Video(string id, string nombre, vector<string> generos, int calificaciones, int duracion, string fechaEstreno);
+      Video(string id, string nombre, vector<string> generos, int calificacion, int duracion, string fechaEstreno);
       void setCalificacion(int calificacion);
       string getId();
       string getNombre();
