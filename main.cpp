@@ -32,9 +32,29 @@ int main(int argc, char **argv){
         cin >> menu;
 
         switch (menu) {
-        
+            // 0-ID,1-Nombre Pelicula/Serie,2-Duración,3-Género,4-Calificación,5-Fecha Estreno,6-ID Episodio,7-Nombre Episodio,8-Temporada,9-Num Episodio
             case 1:
-                //Cargar el archivo 
+                // Cargar el archivo de datos en formato csv
+                cout << "Ingrese el nombre del archivo: "  << endl;
+                cin >> nombreArchivo;
+                cvs.open(nombreArchivo);
+                while(getline(cvs,linea)){
+                  vector<string> datos=separar(linea, ',');
+                  if (datos.size()==6){
+                     //pelicula
+                     Video pelicula(datos[0], datos[1], separar(datos[3], '&'), stoi(datos[4]), stoi(datos[2]), stoi(datos[5]) );
+                     videos.push_back(pelicula);
+                  }
+                  else{
+                     //episodio
+                      Episodio episodio(datos[0], datos[1], separar(datos[3], '&'), stoi(datos[8]), stoi(datos[9]), stoi(datos[4]), stoi(datos[2]), stoi(datos[5]), datos[7]);
+                      videos.push_back(episodio);
+                  }
+                  
+                  separar(linea);
+                  }
+                  cvs.close();
+                break;
             break;
             case 2:
                 // Mostrar los videos en general calif
@@ -66,18 +86,15 @@ int main(int argc, char **argv){
    } while (menu!=7);
 }
 
-vector<string> separar(string linea){
+vector<string> separar(string linea, char delimitador){
    string dato;
-   int numComps;
+   int numComps=0;
    vector<string> comps;
    stringstream linent(linea);
-   while(getline(linent, dato, ',')){
+   while(getline(linent, dato, delimitador)){
       if (dato!=" "&& dato!="\n"){
-         cout<<dato<<endl;
          comps.push_back(dato);
-         numComps++;
       }
    }
-   cout<<"número de componentes: "<<numComps<<endl;
    return comps;
 }

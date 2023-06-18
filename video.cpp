@@ -10,14 +10,14 @@ Video::Video(string id, string nombre, vector<string> generos, int calificacion,
    this->nombre = nombre;
    this->generos = generos;
    this->duracion = duracion;
-   this->fechaEstreno = fechaEsttreno;
-   this->calificaciones = calificacion;
+   this->fechaEstreno = fechaEstreno;
+   this-> calificacion = calificacion;
 }
-void Video::setCalificacion(int calificacion) {
-   this->calificacion = calificacion;
+void Video::setCalificacion(int calificacion) { 
+   this->calificacion = calificacion; 
 }
 string Video::getId() {
-   return this->id;
+    return id;
 }
 string Video::getNombre() {
     return nombre;
