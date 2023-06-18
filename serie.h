@@ -1,23 +1,25 @@
-// serie.h
+// Autor:Palavicini Saldívar Santiago
+// Implementacion de clase serie.h, declaración de clases, atributos y métodos
+// 18/jun/2023
+
 #ifndef SERIE_H
 #define SERIE_H
 
 #include <string>
 #include <vector>
 #include "episodio.h"
-using namespace std;
 
 class Serie {
     private:
-        string id;
-        string nombre;
-        vector<Episodio> episodios;
+        std::string id;
+        std::string nombre;
+        std::vector<Episodio> episodios;
     public:
-        Serie(string id, string nombre);
-        string getId();
-        string getNombre();
+        Serie(std::string id, std::string nombre);
+        std::string getId();
+        std::string getNombre();
         void agregarEpisodio(Episodio episodio);
-        vector<Episodio> getEpisodios();
+        std::vector<Episodio> getEpisodios();
 };
 
 #endif

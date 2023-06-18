@@ -1,18 +1,20 @@
-// episodio.h
+// Autor:Palavicini Saldívar Santiago
+// Implementacion de clase episodio.h, declaración de clases, atributos y métodos
+// 18/jun/2023
+
 #ifndef EPISODIO_H
 #define EPISODIO_H
 
-#include "video.h"
 #include <string>
 #include <vector>
-using namespace std;
+#include "video.h"
 
 class Episodio : public Video {
     private:
         int temporada;
         int numEpisodio;
     public:
-        Episodio(string id, string nombre, int temporada, int numEpisodio, vector<string> generos, double calificacion, int duracion, string fechaEstreno);
+        Episodio(std::string id, std::string nombre, int temporada, int numEpisodio, std::vector<std::string> generos, int calificacion, int duracion, std::string fechaEstreno);
         int getTemporada();
         int getNumEpisodio();
         bool esEpisodio();

@@ -1,28 +1,30 @@
-// video.h
+// Autor:Palavicini Saldívar Santiago
+// Implementacion de clase video.h, declaración de clases, atributos y métodos
+// 18/jun/2023
+
 #ifndef VIDEO_H
 #define VIDEO_H
 
 #include <string>
 #include <vector>
-using namespace std;
 
 class Video {
     protected:
-        string id;
-        string nombre;
-        vector<string> generos;
+        std::string id;
+        std::string nombre;
+        std::vector<std::string> generos;
         int calificacion;
         int duracion;
-        string fechaEstreno;
+        std::string fechaEstreno;
     public:
-        Video(string id, string nombre, vector<string> generos, double calificacion, int duracion, string fechaEstreno);
-        string getId();
-        string getNombre();
-        vector<string> getGeneros();
+        Video(std::string id, std::string nombre, std::vector<std::string> generos, int calificacion, int duracion, std::string fechaEstreno);
+        std::string getId();
+        std::string getNombre();
+        std::vector<std::string> getGeneros();
         int getCalificacion();
         void setCalificacion(int calificacion);
         int getDuracion();
-        string getFechaEstreno();
+        std::string getFechaEstreno();
         virtual bool esEpisodio();
 };
 

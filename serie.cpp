@@ -1,4 +1,7 @@
-// serie
+// Autor:Palavicini Saldívar Santiago
+// Implementacion de clase serie.cpp, definiciones de los métodos dados por serie.h
+// 18/jun/2023
+
 #include "serie.h"
 #include <iostream>
 using namespace std;

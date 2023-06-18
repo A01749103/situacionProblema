@@ -1,7 +1,12 @@
-// video.cpp
-#include "video.h"
+// Autor:Palavicini Saldívar Santiago
+// Implementacion de clase video.cpp, definiciones de los métodos dados por video.h
+// 18/jun/2023
 
-Video::Video(string id, string nombre, vector<string> generos, double calificacion, int duracion, string fechaEstreno) {
+#include "video.h"
+using namespace std;
+
+
+Video::Video(string id, string nombre, vector<string> generos, int calificacion, int duracion, string fechaEstreno) {
     this->id = id;
     this->nombre = nombre;
     this->generos = generos;
@@ -22,11 +27,11 @@ vector<string> Video::getGeneros() {
     return generos;
 }
 
-double Video::getCalificacion() {
+int Video::getCalificacion() {
     return calificacion;
 }
 
-void Video::setCalificacion(double calificacion) {
+void Video::setCalificacion(int calificacion) {
     this->calificacion = calificacion;
 }
 
