@@ -4,27 +4,26 @@
 
 #include <string>
 #include <vector>
-#include <iostream>
 using namespace std;
 
 class Video {
-    private:
+    protected:
         string id;
         string nombre;
-        vector <string> generos;
-        int duracion;
+        vector<string> generos;
         int calificacion;
+        int duracion;
         string fechaEstreno;
-
     public:
         Video(string id, string nombre, vector<string> generos, int calificacion, int duracion, string fechaEstreno);
-        void setCalificacion(int calificacion);
         string getId();
         string getNombre();
         vector<string> getGeneros();
         int getCalificacion();
+        void setCalificacion(int calificacion);
         int getDuracion();
         string getFechaEstreno();
-}; 
+        virtual bool esEpisodio();
+};
 
 #endif

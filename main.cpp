@@ -17,9 +17,13 @@ int main(int argc, char **argv)
    ifstream cvs;
    string nombreArchivo;
    string linea;
+   string genero;
    int calificacionMinima;
    string nombreSerie;
-   vector<string> separar(string linea);
+   string nombreVideo;
+   int nuevaCalificacion;
+
+   vector<string> separar(string linea, char);
 
    do
    {
@@ -121,14 +125,53 @@ int main(int argc, char **argv)
          break;
       case 4:
          // Mostrar las películas calif
-
+         cout << "Ingrese la calificación mínima: ";
+         cin >> calificacionMinima;
+         for (Video &video : videos)
+         {
+            if (!video.esEpisodio() && video.getCalificacion() > calificacionMinima)
+            {
+               cout << video.getNombre() << endl;
+            }
+         }
          break;
       case 5:
          // Calificar un video
-
+         cout << "Ingrese el título de la película o el nombre del episodio de la serie a calificar: ";
+         cin.ignore();
+         getline(cin, nombreVideo);
+         for (Video &video : videos)
+         {
+            if (video.getNombre() == nombreVideo)
+            {
+               cout << "Ingrese la nueva calificación: ";
+               cin >> nuevaCalificacion;
+               video.setCalificacion(nuevaCalificacion);
+               break;
+            }
+         }
          break;
       case 6:
          // Calcular el promedio
+         cout << "Ingrese el nombre de la serie: ";
+         cin.ignore();
+         getline(cin, nombreSerie);
+         for (Serie &serie : series)
+         {
+            if (serie.getNombre() == nombreSerie)
+            {
+               double sumaCalificaciones = 0;
+               int numEpisodios = 0;
+               for (Episodio &episodio : serie.getEpisodios())
+               {
+                  sumaCalificaciones += episodio.getCalificacion();
+                  numEpisodios++;
+               }
+               double promedioCalificaciones = sumaCalificaciones / numEpisodios;
+               cout << "El promedio de la calificación de la serie " << serie.getNombre() << " es: " << promedioCalificaciones << endl;
+               break;
+            }
+         }
 
          break;
       case 7:

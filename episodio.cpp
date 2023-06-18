@@ -5,33 +5,20 @@
 #include <vector>
 using namespace std;
 
-Episodio::Episodio(string id, string nombre, vector<string> generos, int temporada, int numEpisodio, int calificacion, int duracion, string fechaEstreno, string nombreEpisodio) :Serie(id, nombre){
+Episodio::Episodio(std::string id, std::string nombre, int temporada, int numEpisodio, std::vector<std::string> generos, int calificacion, int duracion, std::string fechaEstreno)
+: Video(id, nombre, generos, calificacion, duracion, fechaEstreno) {
     this->temporada = temporada;
     this->numEpisodio = numEpisodio;
-    this->generos = generos;
-    this->calificacion = calificacion;
-    this->duracion = duracion;
-    this->fechaEstreno = fechaEstreno;
-    this->nombreEpisodio = nombreEpisodio;
 }
+
 int Episodio::getTemporada() {
     return temporada;
 }
+
 int Episodio::getNumEpisodio() {
     return numEpisodio;
 }
-vector<string> Episodio::getGeneros() {
-    return generos;
-} 
-int Episodio::getCalificacion() {
-    return calificacion;
-}
-void Episodio::setCalificacion(int calificacion) {
-    this->calificacion = calificacion;
-}
-int Episodio::getDuracion() {
-    return duracion;
-}
-string Episodio::getFechaEstreno() {
-    return fechaEstreno;
+
+bool Episodio::esEpisodio() {
+    return true;
 }
