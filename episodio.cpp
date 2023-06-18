@@ -1,11 +1,11 @@
-//episodio
+// episodio.cpp
 #include "episodio.h"
 #include <iostream>
 #include <string>
 #include <vector>
 using namespace std;
 
-Episodio::Episodio(std::string id, std::string nombre, int temporada, int numEpisodio, std::vector<std::string> generos, int calificacion, double duracion, std::string fechaEstreno)
+Episodio::Episodio(string id, string nombre, int temporada, int numEpisodio, vector<string> generos, double calificacion, int duracion, string fechaEstreno)
 : Video(id, nombre, generos, calificacion, duracion, fechaEstreno) {
     this->temporada = temporada;
     this->numEpisodio = numEpisodio;
