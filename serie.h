@@ -10,10 +10,13 @@ class Serie {
    protected:
       string id;
       string nombre;
+      vector<Episodio> episodios;
 
    public:
       Serie(string id, string nombre);
       string getId();
       string getNombre();
+      void agregarEpisodio(Episodio episodio);
+      vector<Episodio> getEpisodios;
 };
 #endif

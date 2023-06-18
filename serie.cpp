@@ -13,3 +13,9 @@ string Serie::getId() {
 string Serie::getNombre() {
     return nombre;
 }
+void Serie::agregarEpisodio(Episodio episodio) {
+    episodios.push_back(episodio);
+}
+vector<Episodio> Serie::getEpisodios() {
+    return episodios;
+}

@@ -5,14 +5,14 @@
 #include <vector>
 using namespace std;
 
-Episodio::Episodio(string id, string nombre, vector<string> generos, int temporada, int numEpisodio, int calificacion, int duracion, string fechaEstreno, string nombreEpisodio) : Serie(id, nombre) {
+Episodio::Episodio(string id, string nombre, vector<string> generos, int temporada, int numEpisodio, int calificacion, int duracion, string fechaEstreno, string nombreEpisodio) :Serie(id, nombre){
     this->temporada = temporada;
     this->numEpisodio = numEpisodio;
     this->generos = generos;
     this->calificacion = calificacion;
     this->duracion = duracion;
     this->fechaEstreno = fechaEstreno;
-    this->nombreEpisodio = nombreEpisodo;
+    this->nombreEpisodio = nombreEpisodio;
 }
 int Episodio::getTemporada() {
     return temporada;
