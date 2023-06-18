@@ -4,6 +4,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 #include "video.h"
 #include "serie.h"
 #include "episodio.h"
@@ -27,69 +28,68 @@ int main(int argc, char **argv)
 
    do
    {
-      cout << "1. Cargar el archivo de datos en formato csv." << endl;
-      cout << "2. Mostrar los videos en general con:" << endl;
-      cout << "   - Una calificación mayor o igual al valor seleccionado." << endl;
-      cout << "   - Un género específico." << endl;
-      cout << "3. Mostrar todos los episodios de una determinada serie." << endl;
-      cout << "4. Mostrar las películas con una calificacion mayor al valor seleccionado." << endl;
-      cout << "5. Calificar un video." << endl;
-      cout << "6. Calcular el promedio de la calificación de una serie." << endl;
-      cout << "7. Salir." << endl
-           << endl;
-      cout << "Seleccione una opción: ";
-      cin >> menu;
+      cout << left << setw(5) << "1." << "Cargar el archivo de datos en formato csv." << endl;
+cout << left << setw(5) << "2." << "Mostrar los videos en general con:" << endl;
+cout << setw(8) << "" << "- Una calificación mayor o igual al valor seleccionado." << endl;
+cout << setw(8) << "" << "- Un género específico." << endl;
+cout << left << setw(5) << "3." << "Mostrar todos los episodios de una determinada serie." << endl;
+cout << left << setw(5) << "4." << "Mostrar las películas con una calificacion mayor al valor seleccionado." << endl;
+cout << left << setw(5) << "5." << "Calificar un video." << endl;
+cout << left << setw(5) << "6." << "Calcular el promedio de la calificación de una serie."<<endl;
+cout<<left<<setw(5)<<"7."<<"Salir"<<endl<<endl;
+cout<<left<<setw(30)<<"Seleccione una opción: ";
+cin>>menu;
 
       switch (menu)
       {
-      // 0-ID,1-Nombre Pelicula/Serie,2-Duración,3-Género,4-Calificación,5-Fecha Estreno,6-ID Episodio,7-Nombre Episodio,8-Temporada,9-Num Episodio
       case 1:
-         // Cargar el archivo de datos en formato csv
-         cout << "Ingrese el nombre del archivo: " << endl;
-         cin >> nombreArchivo;
-         cvs.open(nombreArchivo);
-         if (!cvs.is_open())
-         {
-            cout << "No se pudo abrir el archivo " << nombreArchivo << endl;
-            break;
-         }
-         getline(cvs, linea);
-         while (getline(cvs, linea))
-         {
-            vector<string> datos = separar(linea, ',');
-            if (datos.size() == 10 && datos[6].empty())
+    // Cargar el archivo de datos en formato csv
+    cout << left << setw(30) << "Ingrese el nombre del archivo: ";
+    cin >> nombreArchivo;
+    cvs.open(nombreArchivo);
+    if (!cvs.is_open())
+    {
+        cout << "No se pudo abrir el archivo " << nombreArchivo << endl;
+        break;
+    }
+    getline(cvs, linea);
+    while (getline(cvs, linea))
+    {
+        vector<string> datos = separar(linea, ',');
+        if (datos.size() == 10 && datos[6].empty())
+        {
+            // Película
+            Video pelicula(datos[0], datos[1], separar(datos[3], '&'), stoi(datos[4]), stoi(datos[2]), datos[5]);
+            videos.push_back(pelicula);
+            cout << left << setw(20) << "Película creada: " << pelicula.getNombre() << endl;
+        }
+        else if (datos.size() == 10)
+        {
+            // Episodio
+            Episodio episodio(datos[6], datos[7], stoi(datos[8]), stoi(datos[9]), separar(datos[3], '&'), stoi(datos[4]), stoi(datos[2]), datos[5]);
+            videos.push_back(episodio);
+            cout << left << setw(20) << "Episodio creado: " << episodio.getNombre() << endl;
+            bool serieEncontrada = false;
+            for (Serie &serie : series)
             {
-               // Película
-               Video pelicula(datos[0], datos[1], separar(datos[3], '&'), stoi(datos[4]), stoi(datos[2]), datos[5]);
-               videos.push_back(pelicula);
-               cout << "Película creada: " << pelicula.getNombre() << endl;
+                if (serie.getId() == datos[0])
+                {
+                    serie.agregarEpisodio(episodio);
+                    serieEncontrada = true;
+                    break;
+                }
             }
-            else if (datos.size() == 10)
+            if (!serieEncontrada)
             {
-               // Episodio
-               Episodio episodio(datos[6], datos[7], stoi(datos[8]), stoi(datos[9]), separar(datos[3], '&'), stoi(datos[4]), stoi(datos[2]), datos[5]);
-               videos.push_back(episodio);
-               cout << "Episodio creado: " << episodio.getNombre() << endl;
-               bool serieEncontrada = false;
-               for (Serie &serie : series)
-               {
-                  if (serie.getId() == datos[0])
-                  {
-                     serie.agregarEpisodio(episodio);
-                     serieEncontrada = true;
-                     break;
-                  }
-               }
-               if (!serieEncontrada)
-               {
-                  Serie nuevaSerie(datos[0], datos[1]);
-                  nuevaSerie.agregarEpisodio(episodio);
-                  series.push_back(nuevaSerie);
-                  cout << "Serie creada: " << nuevaSerie.getNombre() << endl;
-               }
+                Serie nuevaSerie(datos[0], datos[1]);
+                nuevaSerie.agregarEpisodio(episodio);
+                series.push_back(nuevaSerie);
+                cout << left << setw(20) << "Serie creada: " << nuevaSerie.getNombre() << endl;
             }
-         }
-         break;
+        }
+    }
+    break;
+
       case 2:
          // Mostrar los videos en general calif
          cout << "Ingrese la calificación mínima: ";
