@@ -18,10 +18,10 @@ int main(int argc, char **argv)
    string nombreArchivo;
    string linea;
    string genero;
-   int calificacionMinima;
+   double calificacionMinima;
    string nombreSerie;
    string nombreVideo;
-   int nuevaCalificacion;
+   double nuevaCalificacion;
 
    vector<string> separar(string linea, char);
 
@@ -44,45 +44,51 @@ int main(int argc, char **argv)
       {
       // 0-ID,1-Nombre Pelicula/Serie,2-Duración,3-Género,4-Calificación,5-Fecha Estreno,6-ID Episodio,7-Nombre Episodio,8-Temporada,9-Num Episodio
       case 1:
+         // Cargar el archivo de datos en formato csv
          cout << "Ingrese el nombre del archivo: " << endl;
          cin >> nombreArchivo;
          cvs.open(nombreArchivo);
+         if (!cvs.is_open())
+         {
+            cout << "No se pudo abrir el archivo " << nombreArchivo << endl;
+            break;
+         }
+         getline(cvs, linea);
          while (getline(cvs, linea))
          {
             vector<string> datos = separar(linea, ',');
-            if (datos.size() == 6)
+            if (datos.size() == 10 && datos[6].empty())
             {
-               // pelicula
-               Video pelicula(datos[0], datos[1], separar(datos[3], '&'), stoi(datos[4]), stoi(datos[2]), stoi(datos[5]));
+               // Película
+               Video pelicula(datos[0], datos[1], separar(datos[3], '&'), stoi(datos[4]), stoi(datos[2]), datos[5]);
                videos.push_back(pelicula);
+               cout << "Película creada: " << pelicula.getNombre() << endl;
             }
-            else
+            else if (datos.size() == 10)
             {
-               // episodio
-               Episodio episodio(datos[0], datos[1], separar(datos[3], '&'), stoi(datos[8]), stoi(datos[9]), stoi(datos[4]), stoi(datos[2]), stoi(datos[5]), datos[7]);
+               // Episodio
+               Episodio episodio(datos[6], datos[7], stoi(datos[8]), stoi(datos[9]), separar(datos[3], '&'), stoi(datos[4]), stoi(datos[2]), datos[5]);
                videos.push_back(episodio);
-            }
-            bool serieEncontrada = false;
-            for (Serie &serie : series)
-            {
-               if (serie.getId() == datos[0])
+               cout << "Episodio creado: " << episodio.getNombre() << endl;
+               bool serieEncontrada = false;
+               for (Serie &serie : series)
                {
-                  serie.agregarEpisodio(episodio);
-                  serieEncontrada = true;
-                  break;
+                  if (serie.getId() == datos[0])
+                  {
+                     serie.agregarEpisodio(episodio);
+                     serieEncontrada = true;
+                     break;
+                  }
+               }
+               if (!serieEncontrada)
+               {
+                  Serie nuevaSerie(datos[0], datos[1]);
+                  nuevaSerie.agregarEpisodio(episodio);
+                  series.push_back(nuevaSerie);
+                  cout << "Serie creada: " << nuevaSerie.getNombre() << endl;
                }
             }
-            if (!serieEncontrada)
-            {
-               Serie nuevaSerie(datos[0], datos[1]);
-               nuevaSerie.agregarEpisodio(episodio);
-               series.push_back(nuevaSerie);
-            }
-
-            separar(linea);
          }
-         cvs.close();
-         break;
          break;
       case 2:
          // Mostrar los videos en general calif
@@ -110,6 +116,7 @@ int main(int argc, char **argv)
       case 3:
          // Mostrar todos los episodios de una serie
          cout << "Ingrese el nombre de la serie: ";
+         cin.ignore(numeric_limits<streamsize>::max(), '\n');
          getline(cin, nombreSerie);
          for (Serie &serie : series)
          {
@@ -138,14 +145,26 @@ int main(int argc, char **argv)
       case 5:
          // Calificar un video
          cout << "Ingrese el título de la película o el nombre del episodio de la serie a calificar: ";
-         cin.ignore();
+         cin.ignore(numeric_limits<streamsize>::max(), '\n');
          getline(cin, nombreVideo);
          for (Video &video : videos)
          {
             if (video.getNombre() == nombreVideo)
             {
-               cout << "Ingrese la nueva calificación: ";
-               cin >> nuevaCalificacion;
+               while (true)
+               {
+                  cout << "Ingrese la nueva calificación: ";
+                  if (cin >> nuevaCalificacion)
+                  {
+                     break;
+                  }
+                  else
+                  {
+                     cout << "Entrada inválida. Intente de nuevo." << endl;
+                     cin.clear();
+                     cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                  }
+               }
                video.setCalificacion(nuevaCalificacion);
                break;
             }

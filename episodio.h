@@ -12,7 +12,7 @@ class Episodio : public Video {
         int temporada;
         int numEpisodio;
     public:
-        Episodio(string id, string nombre, int temporada, int numEpisodio, vector<string> generos, int calificacion, int duracion, string fechaEstreno);
+        Episodio(string id, string nombre, int temporada, int numEpisodio, vector<string> generos, double calificacion, int duracion, string fechaEstreno);
         int getTemporada();
         int getNumEpisodio();
         bool esEpisodio();

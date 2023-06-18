@@ -15,7 +15,7 @@ class Video {
         int duracion;
         string fechaEstreno;
     public:
-        Video(string id, string nombre, vector<string> generos, int calificacion, int duracion, string fechaEstreno);
+        Video(string id, string nombre, vector<string> generos, double calificacion, int duracion, string fechaEstreno);
         string getId();
         string getNombre();
         vector<string> getGeneros();

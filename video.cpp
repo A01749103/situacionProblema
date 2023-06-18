@@ -1,7 +1,7 @@
 // video.cpp
 #include "video.h"
 
-Video::Video(string id, string nombre, vector<string> generos, int calificacion, int duracion, string fechaEstreno) {
+Video::Video(string id, string nombre, vector<string> generos, double calificacion, int duracion, string fechaEstreno) {
     this->id = id;
     this->nombre = nombre;
     this->generos = generos;
@@ -22,11 +22,11 @@ vector<string> Video::getGeneros() {
     return generos;
 }
 
-int Video::getCalificacion() {
+double Video::getCalificacion() {
     return calificacion;
 }
 
-void Video::setCalificacion(int calificacion) {
+void Video::setCalificacion(double calificacion) {
     this->calificacion = calificacion;
 }
 
